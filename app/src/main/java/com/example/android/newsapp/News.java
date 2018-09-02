@@ -7,7 +7,7 @@ public class News {
     private final String mArticleName;
 
     /**
-     * Author
+     * Author name
      */
     private final String mAuthor;
 
@@ -29,10 +29,11 @@ public class News {
     /**
      * Constructs a new {@link News} object.
      *
-     * @param articleName                is the magnitude (size) of the earthquake
-     * @param author           is the location where the earthquake happened
-     * @param date is the time in milliseconds (from the Epoch) when the
-     *                           earthquake happened
+     * @param articleName is the title of the news section.
+     * @param author is the writer of the article
+     * @param date  is the date of publication
+     * @param category  is name of the section that the article belongs to.
+     * @param url is the url to find more information about the news.
      */
     public News(String articleName, String author, String date, String category, String url) {
         mArticleName = articleName;
@@ -43,7 +44,7 @@ public class News {
     }
 
     /**
-     * get the magnitude
+     * get the article title
      *
      * @return String type
      */
@@ -52,7 +53,7 @@ public class News {
     }
 
     /**
-     * get the location
+     * get the author
      *
      * @return String type
      */
@@ -70,7 +71,7 @@ public class News {
     }
 
     /**
-     * get the date.
+     * get the category.
      *
      * @return string type
      */
@@ -79,7 +80,9 @@ public class News {
     }
 
     /**
-     * Returns the website URL to find more information about the earthquake.
+     * get the URL
+     *
+     * @return string type
      */
     public String getUrl() {
         return mUrl;

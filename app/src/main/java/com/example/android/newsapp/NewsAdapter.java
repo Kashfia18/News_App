@@ -26,12 +26,12 @@ public class NewsAdapter extends ArrayAdapter<News> {
      * to populate into the lists.
      *
      * @param context The current context. Used to inflate the layout file.
-     * @param news    A List of Song objects to display in a list
+     * @param news    A List of News objects to display in a list
      */
     public NewsAdapter(Activity context, ArrayList<News> news) {
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
-        // Because this is a custom adapter for two TextViews and two ImageViews, the adapter is not
+        // Because this is a custom adapter for four TextViews, the adapter is not
         // going to use this second argument, so it can be any value. Here, we used 0.
         super(context, 0, news);
     }
@@ -55,35 +55,41 @@ public class NewsAdapter extends ArrayAdapter<News> {
                     R.layout.news_list_item, parent, false);
         }
 
-        // Get the song object located at this position in the list
+        // Get the News object located at this position in the list
         News currentNews = getItem(position);
 
-        // Find the TextView in the earthquake_list_item.xmlst_item.xml layout with the ID song_name
+        // Find the TextView in the news_list_item.xml,with the ID article_name. And display the article title
+        //in the TextView.
         TextView articleNameTextView = listItemView.findViewById(R.id.article_name);
-
+        assert currentNews != null;
         String articleName=currentNews.getArticleName();
         articleNameTextView.setText(articleName);
 
-        // Find the TextView in the earthquake_list_item.xmlst_item.xml layout with the ID song_name
+        // Find the TextView in the news_list_item.xml,with the ID author. And display the author
+        //in the TextView.
         TextView authorTextView = listItemView.findViewById(R.id.author);
         String author=currentNews.getAuthor();
         authorTextView.setText(author);
 
-        // Find the TextView in the earthquake_list_item.xmlst_item.xml layout with the ID song_name
+        // Find the TextView in the news_list_item.xml,with the ID date. And display the date
+        //in the TextView. The desired formatting of the date (i.e. "Mar 3, 1984") is achieved with the method formatDate.
         TextView dateTextView = listItemView.findViewById(R.id.date);
-
         String date=formatDate(currentNews.getDate());
         dateTextView.setText(date);
 
-        // Find the TextView in the earthquake_list_item.xmlst_item.xml layout with the ID song_name
+        // Find the TextView in the news_list_item.xml,with the ID category. And display the category
+        //in the TextView.
         TextView categoryTextView = listItemView.findViewById(R.id.category);
-
         String category=currentNews.getCategory();
         categoryTextView.setText(category);
 
+        // Return the list item view that is now showing the appropriate data
         return listItemView;
     }
 
+    /**
+     * Return the formatted date string (i.e. "Mar 3, 1984") from a date of String type.
+     */
     private String formatDate(String date) {
         SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.UK);
         SimpleDateFormat output = new SimpleDateFormat("MMM d, yyy", Locale.UK);

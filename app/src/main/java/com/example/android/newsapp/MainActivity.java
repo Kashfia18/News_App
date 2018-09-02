@@ -19,7 +19,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
-    public static final String LOG_TAG = MainActivity.class.getName();
     /**
      * URL for news data from the Guardian dataset
      */
@@ -69,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 // Find the current news that was clicked on
                 News currentNews = newsAdapter.getItem(position);
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
+                assert currentNews != null;
                 Uri webpage = Uri.parse(currentNews.getUrl());
                 // Create a new intent to view the news URI
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         // Get details on the currently active default data network
+        assert cm != null;
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
         // Get a reference to the ConnectivityManager to check state of network connectivity
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
             // because this activity implements the LoaderCallbacks interface).
             loaderManager.initLoader(NEWS_LOADER_ID, null, this);
-            Log.e(LOG_TAG, "To initiate loader ");
+
         } else {
             // Otherwise, display error
             // First, hide loading indicator so error message will be visible
@@ -103,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             loadingIndicator.setVisibility(View.GONE);
 
             // Update empty state with no connection error message
-            Log.e(LOG_TAG, "no internet connection");
             mEmptyStateTextView.setText(R.string.no_internet);
         }
     }
@@ -111,36 +111,36 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public Loader<List<News>> onCreateLoader(int id, Bundle args) {
         // Create a new loader for the given URL
-        Log.e(LOG_TAG, "create loader ");
         return new NewsLoader(this, GUARDIAN_REQUEST_URL);
     }
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> news ) {
 
-        // Clear the adapter of previous earthquake data
-        Log.e(LOG_TAG, "return the list of earthquakes from the loadInBackground method");
+        // Hide loading indicator because the data has been loaded
+        View loadingIndicator = findViewById(R.id.loading_indicator);
+        loadingIndicator.setVisibility(View.GONE);
+
+        // Set empty state text to display "No News found."
+        mEmptyStateTextView.setText(R.string.no_news);
+
+        // Clear the adapter of previous news data
         newsAdapter.clear();
 
-        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // If there is a valid list of {@link News}, then add them to the adapter's
         // data set. This will trigger the ListView to update.
 
         if (news != null && !news.isEmpty()) {
             newsAdapter.addAll(news);
 
         }
-        // Set empty state text to display "No earthquakes found."
-        mEmptyStateTextView.setText(R.string.no_news);
-
-        // Hide loading indicator because the data has been loaded
-        View loadingIndicator = findViewById(R.id.loading_indicator);
-        loadingIndicator.setVisibility(View.GONE);
 
     }
 
     @Override
     public void onLoaderReset(Loader<List<News>> loader) {
-        Log.e(LOG_TAG, "Loader is reset");
+
+        // Loader reset, so we can clear out our existing data.
         newsAdapter.clear();
     }
 }
