@@ -203,7 +203,6 @@ public final class QueryUtils {
         }
 
         return news;
-
     }
 
 }
