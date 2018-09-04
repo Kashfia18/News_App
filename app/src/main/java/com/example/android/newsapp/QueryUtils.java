@@ -25,7 +25,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
  */
 public final class QueryUtils {
 
-    public static final String LOG_TAG = QueryUtils.class.getName();
+    private static final String LOG_TAG = QueryUtils.class.getName();
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -52,11 +52,8 @@ public final class QueryUtils {
         }
 
         // Extract relevant fields from the JSON response and create a list of {@link News}s
-        List<News> news=extractFeatureFromJson(jsonResponse);
-
-
         // Return the list of news
-        return news;
+        return extractFeatureFromJson(jsonResponse);
     }
 
     /**
