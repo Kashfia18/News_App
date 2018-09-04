@@ -18,6 +18,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.net.HttpURLConnection.HTTP_OK;
+
 /**
  * Helper methods related to requesting and receiving news data from the Guardian website.
  */
@@ -92,7 +94,7 @@ public final class QueryUtils {
 
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
-            if (urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == HTTP_OK) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
@@ -145,7 +147,7 @@ public final class QueryUtils {
         // Create an empty ArrayList that we can start adding news to
         List<News> news = new ArrayList<>();
 
-        String author="";
+        String author;
 
         // Try to parse the json response string. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
@@ -173,8 +175,9 @@ public final class QueryUtils {
 
                 // Extract the value for the key called "byline" within "fields" JSONObject. If no "fields"
                 //key, author string is empty.
-                if (currentNews.has("fields")) {
-                    author = (currentNews.getJSONObject("fields")).getString("byline");
+                JSONArray author_array= currentNews.getJSONArray("tags");
+                if (author_array.length()!=0) {
+                    author=author_array.getJSONObject(0).getString("webTitle");
                 }else{
                     author="";
                 }
