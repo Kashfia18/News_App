@@ -4,12 +4,15 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -23,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      * URL for news data from the Guardian dataset
      */
     private static final String GUARDIAN_REQUEST_URL =
-            "https://content.guardianapis.com/search?q=us&show-tags=contributor&api-key=test";
+            "https://content.guardianapis.com/search";
 
     /**
      * Constant value for the NEWS loader ID. We can choose any integer.
@@ -109,13 +112,51 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public Loader<List<News>> onCreateLoader(int id, Bundle args) {
-        // Create a new loader for the given URL
-        return new NewsLoader(this, GUARDIAN_REQUEST_URL);
+    // onCreateLoader instantiates and returns a new Loader for the given ID
+    public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
+
+        //To access the preferences, that are used in your PreferenceActivity
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // getString retrieves a String value from the preferences. The second parameter is the default value
+        // for this preference. The default value works when the app is first installed and opened.
+        String query = sharedPrefs.getString(
+                getString(R.string.settings_search_key),
+                getString(R.string.settings_search_default));
+
+        String sectionCategory  = sharedPrefs.getString(
+                getString(R.string.settings_section_key),
+                getString(R.string.settings_section_default));
+
+        // parse breaks apart the URI string that's passed into its parameter
+        Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
+
+        // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        // Append query parameter and its value. For example, the `show-tags=contributor`
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("api-key", "584b1b69-911d-4f39-bab6-d448bcb3b085");
+        uriBuilder.appendQueryParameter("order-by", "newest");
+
+        //if query has input
+        if (!query.equals("")) {
+            uriBuilder.appendQueryParameter("q", query);
+        }else{ //if query is left empty
+            uriBuilder.appendQueryParameter("q",getString(R.string.settings_search_default));
+        }
+        //if section has a category selected.
+        if (!sectionCategory.equals("")){
+            uriBuilder.appendQueryParameter("section", sectionCategory);
+        }
+
+        // Return the completed uri `https://content.guardianapis.com/search?show-tags=contributor&api-key=584b1b69-911d-4f39-bab6-d448bcb3b085&order-by=newest&q=query&section=sectionCategory
+        return new NewsLoader(this, uriBuilder.toString());
+
     }
 
     @Override
-    public void onLoadFinished(Loader<List<News>> loader, List<News> news ) {
+    public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
 
         // Hide loading indicator because the data has been loaded
         View loadingIndicator = findViewById(R.id.loading_indicator);
@@ -142,5 +183,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // Loader reset, so we can clear out our existing data.
         newsAdapter.clear();
+    }
+
+    @Override
+    // This method initialize the contents of the Activity's options menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    // This method is called whenever an item in the options menu is selected.
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size_article_name"
         android:layout_marginBottom="@dimen/title_margin_bottom"
         android:textColor="@color/title_text_color"
         android:textStyle="bold"
@@ -32,7 +32,7 @@
             android:id="@+id/author"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="@dimen/text_size_author"
             tools:text="Jamie Fullerton"
             android:layout_weight="1"
             android:ellipsize="end"
@@ -42,7 +42,7 @@
             android:id="@+id/date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="@dimen/text_size_date"
             tools:text="Mar 6, 2010"
             android:layout_weight="1"/>
 
@@ -50,7 +50,7 @@
             android:id="@+id/category"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_category"
             tools:text="Sports"
             android:textStyle="italic|bold"
             android:layout_weight="1"/>

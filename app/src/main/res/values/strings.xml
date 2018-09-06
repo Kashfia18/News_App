@@ -2,4 +2,48 @@
     <string name="app_name">The Guardian News App</string>
     <string name="no_internet">No internet connection found! Check \n\u0020\u0020\u0020\u0020\u0020your connection and try again.</string>
     <string name="no_news">\u0020\u0020\u0020No news found!\nCheck back in a bit</string>
+
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">News Settings</string>
+
+    <!-- Strings For Search Input Preference -->
+    <string name="settings_search_label">Search input</string>
+    <string name="settings_search_key" translatable="false">search_news</string>
+    <string name="settings_search_default" translatable="false">us</string>
+
+    <!-- Strings For Section Preference -->
+    <string name="settings_sections_label">Select section</string>
+    <string name="settings_section_key" translatable="false">section</string>
+    <string name="settings_section_default_label">Default</string>
+    <string name="settings_section_default" translatable="false">""</string>
+    <string name="settings_section_art_and_design_label">Art and design</string>
+    <string name="settings_section_art_and_design_value" translatable="false">artanddesign</string>
+    <string name="settings_section_australia_news_label">Australia news</string>
+    <string name="settings_section_australia_news_value" translatable="false">australia-news</string>
+    <string name="settings_section_books_label">Books</string>
+    <string name="settings_section_books_value" translatable="false">books</string>
+    <string name="settings_section_business_label">Business</string>
+    <string name="settings_section_business_value" translatable="false">business</string>
+    <string name="settings_section_cities_label">Cities</string>
+    <string name="settings_section_cities_value" translatable="false">cities</string>
+    <string name="settings_section_opinion_label">Opinion</string>
+    <string name="settings_section_opinion_value" translatable="false">commentisfree</string>
+    <string name="settings_section_food_label">Food</string>
+    <string name="settings_section_food_value" translatable="false">food</string>
+    <string name="settings_section_football_label">Football</string>
+    <string name="settings_section_football_value" translatable="false">football</string>
+    <string name="settings_section_technology_label">Technology</string>
+    <string name="settings_section_technology_value" translatable="false">technology</string>
+    <string name="settings_section_sport_label">Sport</string>
+    <string name="settings_section_sport_value" translatable="false">sport</string>
+    <string name="settings_section_world_news_label">World news</string>
+    <string name="settings_section_world_news_value" translatable="false">world</string>
+    <string name="settings_section_uk_news_label">Uk news</string>
+    <string name="settings_section_uk_news_value" translatable="false">uk-news</string>
+
+
+
+
+
+
 </resources>
