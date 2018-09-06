@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_section_labels">
+        <item>@string/settings_section_default_label</item>
+        <item>@string/settings_section_art_and_design_label</item>
+        <item>@string/settings_section_australia_news_label</item>
+        <item>@string/settings_section_books_label</item>
+        <item>@string/settings_section_business_label</item>
+        <item>@string/settings_section_cities_label</item>
+        <item>@string/settings_section_opinion_label</item>
+        <item>@string/settings_section_food_label</item>
+        <item>@string/settings_section_football_label</item>
+        <item>@string/settings_section_technology_label</item>
+        <item>@string/settings_section_sport_label</item>
+        <item>@string/settings_section_world_news_label</item>
+        <item>@string/settings_section_uk_news_label</item>
+    </string-array>
+
+    <string-array name="settings_section_values">
+        <item>@string/settings_section_default</item>
+        <item>@string/settings_section_art_and_design_value</item>
+        <item>@string/settings_section_australia_news_value</item>
+        <item>@string/settings_section_books_value</item>
+        <item>@string/settings_section_business_value</item>
+        <item>@string/settings_section_cities_value</item>
+        <item>@string/settings_section_opinion_value</item>
+        <item>@string/settings_section_food_value</item>
+        <item>@string/settings_section_football_value</item>
+        <item>@string/settings_section_technology_value</item>
+        <item>@string/settings_section_sport_value</item>
+        <item>@string/settings_section_world_news_value</item>
+        <item>@string/settings_section_uk_news_value</item>
+    </string-array>
+</resources>
