@@ -26,6 +26,8 @@ import static java.net.HttpURLConnection.HTTP_OK;
 public final class QueryUtils {
 
     private static final String LOG_TAG = QueryUtils.class.getName();
+    private static final int READ_TIMEOUT = 10000;
+    private static final int CONNECT_TIMEOUT = 15000;
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -84,8 +86,8 @@ public final class QueryUtils {
         InputStream inputStream = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(READ_TIMEOUT /* milliseconds */);
+            urlConnection.setConnectTimeout(CONNECT_TIMEOUT /* milliseconds */);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
